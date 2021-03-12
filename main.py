@@ -39,9 +39,10 @@ if args.cuda:
 
 #choose and load dataset
 if args.dataset == "GTZAN":
-    train_dataset = MusicDastset(root=args.train_path, train = True)
-    valid_dataset = MusicDastset(root=args.valid_path, train = False)
-    test_dataset = MusicDastset(root=args.test_path, train = False)
+    GTZAN_path = 'music/GTZAN/genres_original.16kHz'
+    train_dataset = MusicDastset(root=GTZAN_path + "/train", train = True)
+    valid_dataset = MusicDastset(root=GTZAN_path + "/val", train = False)
+    test_dataset = MusicDastset(root=GTZAN_path + "/test", train = False)
 else:
     train_dataset = BooksDataset("speech2genre", url="train-clean-100", folder_in_archive="", download=False)
     valid_dataset = BooksDataset("speech2genre", url="dev-clean", folder_in_archive="", download=False)
