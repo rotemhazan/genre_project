@@ -9,6 +9,7 @@ from train import train,test
 
 # Training settings
 parser = argparse.ArgumentParser(description='ConvNets for Speech Commands Recognition')
+parser.add_argument('--dataset', default='GTZAN', help='choose dataset (GTZAN or LibriSpeech)')
 parser.add_argument('--train_path', default='music/GTZAN/genres_original.16kHz/train', help='path to the train data folder')
 parser.add_argument('--test_path', default='music/GTZAN/genres_original.16kHz/test', help='path to the test data folder')
 parser.add_argument('--valid_path', default='music/GTZAN/genres_original.16kHz/val', help='path to the valid data folder')
@@ -24,7 +25,6 @@ parser.add_argument('--log-interval', type=int, default=10, metavar='N', help='n
 parser.add_argument('--patience', type=int, default=15, metavar='N', help='how many epochs of no loss improvement should we wait before stop training')
 
 args, unknown = parser.parse_known_args()
-args.arc = 'VGG11'
 args.cuda = args.cuda and torch.cuda.is_available()
 print("cuda: {}".format(args.cuda))
 torch.manual_seed(args.seed)
@@ -36,15 +36,18 @@ if args.cuda:
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-#loading data - Books Dataset 
-train_dataset = BooksDataset("/Users/Rotem/Documents/audio/speech2genre", url="train-clean-100", folder_in_archive="", download=False)
-valid_dataset = BooksDataset("/Users/Rotem/Documents/audio/speech2genre", url="dev-clean", folder_in_archive="", download=False)
-test_dataset = BooksDataset("/Users/Rotem/Documents/audio/speech2genre", url="test-clean", folder_in_archive="", download=False)
 
-#loading data - Music Dataset 
-# train_dataset = MusicDastset(root=args.train_path, train = True)
-# valid_dataset = MusicDastset(root=args.valid_path, train = False)
-# test_dataset = MusicDastset(root=args.test_path, train = False)
+#choose and load dataset
+if args.dataset == "GTZAN":
+    train_dataset = MusicDastset(root=args.train_path, train = True)
+    valid_dataset = MusicDastset(root=args.valid_path, train = False)
+    test_dataset = MusicDastset(root=args.test_path, train = False)
+else:
+    train_dataset = BooksDataset("speech2genre", url="train-clean-100", folder_in_archive="", download=False)
+    valid_dataset = BooksDataset("speech2genre", url="dev-clean", folder_in_archive="", download=False)
+    test_dataset = BooksDataset("speech2genre", url="test-clean", folder_in_archive="", download=False)
+
+
 
 num_classes = train_dataset.num_classes
 train_loader = torch.utils.data.DataLoader(
