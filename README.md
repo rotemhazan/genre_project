@@ -1,5 +1,5 @@
 # genre_project
-Install pytho3 and pip
+Install python3 and pip
 
 # To create virtual environment 
 python3 -m venv ~/venv/audio
