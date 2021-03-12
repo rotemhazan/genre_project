@@ -1,0 +1,9 @@
+future              
+ipython             
+jupyter             
+librosa             
+matplotlib          
+numpy               
+pandas             
+torch               
+torchaudio         
