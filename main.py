@@ -2,6 +2,7 @@ import argparse
 import torch
 import numpy as np
 import torch.optim as optim
+import os 
 
 from data_loader import MusicDastset, BooksDataset
 from model import LeNet, VGG 
@@ -10,9 +11,6 @@ from train import train,test
 # Training settings
 parser = argparse.ArgumentParser(description='ConvNets for Speech Commands Recognition')
 parser.add_argument('--dataset', default='GTZAN', help='choose dataset (GTZAN or LibriSpeech)')
-parser.add_argument('--train_path', default='music/GTZAN/genres_original.16kHz/train', help='path to the train data folder')
-parser.add_argument('--test_path', default='music/GTZAN/genres_original.16kHz/test', help='path to the test data folder')
-parser.add_argument('--valid_path', default='music/GTZAN/genres_original.16kHz/val', help='path to the valid data folder')
 parser.add_argument('--batch_size', type=int, default=100, metavar='N', help='training and valid batch size')
 parser.add_argument('--test_batch_size', type=int, default=100, metavar='N', help='batch size for testing')
 parser.add_argument('--arc', default='LeNet', help='network architecture: LeNet, VGG11, VGG13, VGG16, VGG19')

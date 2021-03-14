@@ -1,4 +1,5 @@
 import torch.nn.functional as F
+import torch
 
 def train(loader, model, optimizer, epoch, cuda, log_interval, verbose=True):
     model.train()
