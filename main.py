@@ -84,7 +84,7 @@ epoch = 1
 while (epoch < args.epochs + 1) and (iteration < args.patience):
     train(train_loader, model, optimizer, epoch, args.cuda, args.log_interval)
     print('Epoch {0}'.format(str(epoch)))
-    valid_loss, acc = test(valid_loader, model, args.cuda)
+    valid_loss, acc = test(valid_loader, model, args.cuda, is_valid=True)
     acc_save = 1-acc
     if acc_save > best_valid_loss:
         iteration += 1
